@@ -1,0 +1,27 @@
+{
+  "name": "discord-bernardo",
+  "version": "2020.10.25",
+  "description": "A discord chat bot!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "8ball": "^1.0.6",
+    "cron": "^1.8.2",
+    "discord.js": "^12.3.1",
+    "discord.js-poll-embed": "^1.0.2",
+    "flight-data": "^2.0.1",
+    "glob": "^7.1.6",
+    "imdb": "^1.1.0",
+    "knex": "^0.21.6",
+    "log-symbols": "^4.0.0",
+    "mal-scraper": "^2.11.2",
+    "name-to-imdb": "^3.0.1",
+    "random-animals-api": "^1.2.0",
+    "sqlite3": "^5.0.0",
+    "weather-js": "^2.0.0"
+  }
+}
