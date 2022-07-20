@@ -9,7 +9,7 @@ const divider = "/"
 
 
 module.exports = {
-    name: 'weather',
+    name: 'msnweather',
     description: 'Get the weather for a location',
     help: '',
     execute(client, message, args) {

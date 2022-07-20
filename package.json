@@ -20,6 +20,7 @@
     "log-symbols": "^4.0.0",
     "mal-scraper": "^2.11.2",
     "name-to-imdb": "^3.0.1",
+    "openweather-api-node": "^1.4.1",
     "random-animals-api": "^1.2.0",
     "sqlite3": "^5.0.0",
     "weather-js": "^2.0.0"
