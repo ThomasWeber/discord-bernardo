@@ -217,7 +217,7 @@ async function doWeather(message, location) {
                     .setFooter(wrDate.toDateString() + '   ' + wrDate.toTimeString().substring(0, 5))
                     .setThumbnail(result.hourly[0].weather.icon.url)
                     .addFields(
-                        { name: 'Current', value: Math.round(result.hourly[0].weather.temp.cur) + degF + divider + celsius(result.hourly[0].weather.temp.cur) + degC, inline: true },
+                        { name: 'Current', value: Math.round(result.current.weather.temp.cur) + degF + divider + celsius(result.current.weather.temp.cur) + degC, inline: true },
                         { name: 'Low', value: Math.round(result.daily[0].weather.temp.min) + degF + divider + celsius(result.daily[0].weather.temp.min) + degC, inline: true },
                         { name: 'High', value: Math.round(result.daily[0].weather.temp.max) + degF + divider + celsius(result.daily[0].weather.temp.max) + degC, inline: true },
                         { name: 'Feels Like', value: Math.round(result.hourly[0].weather.feels_like.cur) + degF + divider + celsius(result.hourly[0].weather.feels_like.cur) + degC, inline: true },
