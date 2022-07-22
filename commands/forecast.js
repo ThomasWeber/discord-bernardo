@@ -217,13 +217,15 @@ async function doWeather(message, location) {
                     forecastDays.push(thisField)
 
                     thisField = {}                                   
-                    i==1 ? thisField.name = "Temp" : thisField.name = "⠀" 
+                    // i==1 ? thisField.name = "Temp" : thisField.name = "⠀" 
+                    thisField.name = "Temp"
                     thisField.value = Math.round(result.daily[i].weather.temp.min) + '-' + Math.round(result.daily[i].weather.temp.max) + 'F  /  '  + celsius(result.daily[i].weather.temp.min) + '-' + celsius(result.daily[i].weather.temp.max) + 'C    ';
                     thisField.inline = true
                     forecastDays.push(thisField)
 
                     thisField = {}                    
-                    i==1 ? thisField.name = "Feels Like" : thisField.name = "⠀" 
+                    // i==1 ? thisField.name = "Feels Like" : thisField.name = "⠀" 
+                    thisField.name = "Feels Like"
                     thisField.value = Math.round(result.daily[i].weather.feels_like.night) + '-' + Math.round(result.daily[i].weather.feels_like.day) + 'F  /  '  + celsius(result.daily[i].weather.feels_like.night) + '-' + celsius(result.daily[i].weather.feels_like.day) + 'C    ';
                     thisField.inline = true
                     forecastDays.push(thisField)
