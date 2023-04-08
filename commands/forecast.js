@@ -139,6 +139,9 @@ function updateLocation(targetUser, location) {
         }).catch((err) => { console.log(err); throw err })
 }
 
+function round10(num) {
+    return Math.round(num*10) / 10
+}
 
 function celsius(f) {
     return Math.round((f - 32) * (5 / 9));
@@ -201,9 +204,9 @@ async function doWeather(message, location) {
 
                 var wrDate = new Date(result.current.dt);
                 //var windDisplay = result[0].hourly[0].winddisplay.replace(/north/i,"N");
-                var windDisplay = result.hourly[0].weather.wind.speed + 'mph '
+                var windDisplay = round10(result.hourly[0].weather.wind.speed) + 'mph '
                 if (result.hourly[0].weather.wind.gust) {
-                    windDisplay += 'with ' + result.hourly[0].weather.wind.gust + "mph gusts "
+                    windDisplay += 'with ' + round10(result.hourly[0].weather.wind.gust) + "mph gusts "
                 }
                 // windDisplay += ' @' + result.hourly[0].weather.wind.deg + ''
 
@@ -223,10 +226,18 @@ async function doWeather(message, location) {
                     thisField.inline = true
                     forecastDays.push(thisField)
 
+                    console.log(i, result.daily[i].weather.temp)
+
+                    // thisField = {}                    
+                    // // i==1 ? thisField.name = "Feels Like" : thisField.name = "⠀" 
+                    // thisField.name = "Feels Like"
+                    // thisField.value = Math.round(result.daily[i].weather.feels_like.night) + '-' + Math.round(result.daily[i].weather.feels_like.day) + 'F  /  '  + celsius(result.daily[i].weather.feels_like.night) + '-' + celsius(result.daily[i].weather.feels_like.day) + 'C    ';
+                    // thisField.inline = true
+                    // forecastDays.push(thisField)
+
                     thisField = {}                    
-                    // i==1 ? thisField.name = "Feels Like" : thisField.name = "⠀" 
-                    thisField.name = "Feels Like"
-                    thisField.value = Math.round(result.daily[i].weather.feels_like.night) + '-' + Math.round(result.daily[i].weather.feels_like.day) + 'F  /  '  + celsius(result.daily[i].weather.feels_like.night) + '-' + celsius(result.daily[i].weather.feels_like.day) + 'C    ';
+                    thisField.name = "⠀"
+                    thisField.value = "⠀"
                     thisField.inline = true
                     forecastDays.push(thisField)
 
@@ -246,6 +257,9 @@ async function doWeather(message, location) {
 
 
                 message.reply(output)
+
+
+
 
             }
 

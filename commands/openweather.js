@@ -11,7 +11,7 @@ const divider = "/"
 
 
 module.exports = {
-    name: 'weather',
+    name: 'openweather',
     description: 'Get the weather for a location',
     help: '',
     execute(client, message, args) {
@@ -139,6 +139,9 @@ function updateLocation(targetUser, location) {
         }).catch((err) => { console.log(err); throw err })
 }
 
+function round10(num) {
+    return Math.round(num*10) / 10
+}
 
 function celsius(f) {
     return Math.round((f - 32) * (5 / 9));
@@ -198,22 +201,39 @@ async function doWeather(message, location) {
 
                 console.log(result)
                 console.log(loc)
+                
+                
+        
 
 
                 var wrDate = new Date(result.current.dt);
                 //var windDisplay = result[0].hourly[0].winddisplay.replace(/north/i,"N");
-                var windDisplay = Math.round(result.hourly[0].weather.wind.speed) + 'mph '
-                if (result.hourly[0].weather.wind.gust) {
-                    windDisplay += 'with ' + Math.round(result.hourly[0].weather.wind.gust) + "mph gusts "
+                var windDisplay = round10(result.hourly[0].weather.wind.speed) + 'mph '
+                if (result.hourly[0].weather.wind.gust && ((result.hourly[0].weather.wind.gust - result.hourly[0].weather.wind.speed) > 3)) {
+                    windDisplay += 'with ' + round10(result.hourly[0].weather.wind.gust) + "mph gusts "
                 }
                 // windDisplay += ' @' + result.hourly[0].weather.wind.deg + '°'
+
+                var alerts = ''
+                if (result.alerts) {
+                    for(var i=0; i<result.alerts.length; i++) {
+                        // output.addField({ 
+                        //     name: 'Alert', 
+                        //     value: result.alerts[i].event, 
+                        //     inline: false 
+                        // })
+                        alerts += '     **Alert:** ' + capitalize(result.alerts[i].event)
+                    }
+
+                    console.log('Alert ' + result.alerts.length + ': ' + result.alerts[0].event)
+                }   
 
 
                 var output = new Discord.MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle('Weather for ' + loc.name + ", " + loc.state)
                     //.setURL('https://discord.js.org/')
-                    .setDescription('*' + capitalize(result.hourly[0].weather.description) + '*')
+                    .setDescription('*' + capitalize(result.hourly[0].weather.description) + '* ' + alerts)
                     .setFooter(wrDate.toDateString() + '   ' + wrDate.toTimeString().substring(0, 5))
                     .setThumbnail(result.hourly[0].weather.icon.url)
                     .addFields(
@@ -226,8 +246,24 @@ async function doWeather(message, location) {
 
                     )
 
+                
 
                 message.reply(output)
+
+
+                var alerts = ''
+                if (result.alerts) {
+                    for(var i=0; i<result.alerts.length; i++) {
+                        // output.addField({ 
+                        //     name: 'Alert', 
+                        //     value: result.alerts[i].event, 
+                        //     inline: false 
+                        // })
+                        alerts += '     **Alert:** ' + result.alerts[i].event
+                    }
+
+                    console.log('Alert ' + result.alerts.length + ': ' + result.alerts[0].event)
+                }   
 
             }
 
