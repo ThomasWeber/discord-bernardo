@@ -264,6 +264,7 @@ async function discordOutput(message, data) {
     //console.log(data.weatherObj.TemperatureSummary )
 
     let windDisplay = data.weatherObj.Wind.Speed.Imperial.Value + ' ' + data.weatherObj.Wind.Speed.Imperial.Unit + ' & ' + data.weatherObj.WindGust.Speed.Imperial.Value + ' ' + data.weatherObj.WindGust.Speed.Imperial.Unit + ' gusts'
+    let iconURL = 'https://developer.accuweather.com/sites/default/files/' + ("0" + data.weatherObj.WeatherIcon).slice(-2) + "-s.png"
 
 
     var output = new Discord.MessageEmbed()
@@ -272,7 +273,7 @@ async function discordOutput(message, data) {
     .setURL(data.weatherObj.Link)
     .setDescription('*' + capitalize(data.forecastObj.Headline.Text) + '*')
     //.setFooter(wrDate.toDateString() + '   ' + wrDate.toTimeString().substring(0, 5))
-    //.setThumbnail(result.hourly[0].weather.icon.url)
+    .setThumbnail(iconURL)
     .addFields(
         { name: 'Current', value: data.weatherObj.Temperature.Imperial.Value + degF + divider + data.weatherObj.Temperature.Metric.Value + degC, inline: true },
         { name: 'Low', value: data.weatherObj.TemperatureSummary.Past12HourRange.Minimum.Imperial.Value + degF + divider + data.weatherObj.TemperatureSummary.Past12HourRange.Minimum.Metric.Value + degC, inline: true },
