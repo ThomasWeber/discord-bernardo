@@ -265,13 +265,14 @@ async function discordOutput(message, data) {
 
     let windDisplay = data.weatherObj.Wind.Speed.Imperial.Value + ' ' + data.weatherObj.Wind.Speed.Imperial.Unit + ' & ' + data.weatherObj.WindGust.Speed.Imperial.Value + ' ' + data.weatherObj.WindGust.Speed.Imperial.Unit + ' gusts'
     let iconURL = 'https://developer.accuweather.com/sites/default/files/' + ("0" + data.weatherObj.WeatherIcon).slice(-2) + "-s.png"
+    var wrDate = new Date(data.weatherObj.LocalObservationDateTime);
 
 
     var output = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Weather for ' + data.cityName.LocalizedName)
     .setURL(data.weatherObj.Link)
-    .setDescription('*' + capitalize(data.forecastObj.Headline.Text) + '*')
+    .setDescription('*' + data.weatherObj.WeatherText + "! " + capitalize(data.forecastObj.Headline.Text) + '!*')
     //.setFooter(wrDate.toDateString() + '   ' + wrDate.toTimeString().substring(0, 5))
     .setThumbnail(iconURL)
     .addFields(
