@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const config = require("../config.json");
 const db = require("../database.js");
 const fetch = require('node-fetch');  // npm install node-fetch@2.0
+const util = require('util')
 
 // const openweathermap_apiKey = config.openweathermap_key;
 const accuweather_apiKey = config.accuweather_key;
@@ -149,7 +150,8 @@ function round10(num) {
 }
 
 function celsius(f) {
-    return Math.round((f - 32) * (5 / 9));
+    //return Math.round((f - 32) * (5 / 9));
+    return ((f-32) * (5/9)).toFixed(1);
 }
 
 function capitalize(s) {
@@ -261,7 +263,11 @@ let accuweather = async (city) =>{
 
 async function discordOutput(message, data) {
 
-    //console.log(data.weatherObj.TemperatureSummary )
+    // console.log(data.weatherObj.TemperatureSummary )
+
+    // console.log(util.inspect(data.weatherObj, {showHidden: false, depth: null, colors: true}))
+    console.log(util.inspect(data.forecastObj, {showHidden: false, depth: null, colors: true}))
+    
 
     let windDisplay = data.weatherObj.Wind.Speed.Imperial.Value + ' ' + data.weatherObj.Wind.Speed.Imperial.Unit + ' & ' + data.weatherObj.WindGust.Speed.Imperial.Value + ' ' + data.weatherObj.WindGust.Speed.Imperial.Unit + ' gusts'
     let iconURL = 'https://developer.accuweather.com/sites/default/files/' + ("0" + data.weatherObj.WeatherIcon).slice(-2) + "-s.png"
@@ -277,8 +283,8 @@ async function discordOutput(message, data) {
     .setThumbnail(iconURL)
     .addFields(
         { name: 'Current', value: data.weatherObj.Temperature.Imperial.Value + degF + divider + data.weatherObj.Temperature.Metric.Value + degC, inline: true },
-        { name: 'Low', value: data.weatherObj.TemperatureSummary.Past12HourRange.Minimum.Imperial.Value + degF + divider + data.weatherObj.TemperatureSummary.Past12HourRange.Minimum.Metric.Value + degC, inline: true },
-        { name: 'High', value: data.weatherObj.TemperatureSummary.Past12HourRange.Maximum.Imperial.Value + degF + divider + data.weatherObj.TemperatureSummary.Past12HourRange.Maximum.Metric.Value + degC, inline: true },
+        { name: 'Low', value: data.forecastObj.DailyForecasts[0].Temperature.Minimum.Value + degF + divider + celsius(data.forecastObj.DailyForecasts[0].Temperature.Minimum.Value) + degC, inline: true },
+        { name: 'High', value: data.forecastObj.DailyForecasts[0].Temperature.Maximum.Value + degF + divider + celsius(data.forecastObj.DailyForecasts[0].Temperature.Maximum.Value) + degC, inline: true },
         { name: 'Feels Like', value: data.weatherObj.RealFeelTemperature.Imperial.Value + degF + divider + data.weatherObj.RealFeelTemperature.Metric.Value + degC, inline: true },
         { name: 'Humidity', value: data.weatherObj.RelativeHumidity + '%', inline: true },
         { name: 'Wind', value: windDisplay, inline: true },

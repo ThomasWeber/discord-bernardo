@@ -33,7 +33,8 @@ module.exports = {
 
 
 function celsius(f) {
-    return Math.round((f - 32) * (5 / 9));
+    // return Math.round((f - 32) * (5 / 9));
+    return ((f-32) * (5/9)).toFixed(1);
 }
 
 
