@@ -187,6 +187,8 @@ const getLocationKey = async(city) =>{
 
         const data = await response.json();
 
+        console.log(util.inspect(response, {showHidden: false, depth: null, colors: true}))
+
 
         return data[0];
     }

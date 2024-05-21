@@ -1,3 +1,6 @@
+// TODO: ignore duplicate aliases!
+// TODO: add alias removal command!
+
 const Discord = require("discord.js");
 const config = require("../../config.json");
 const db = require("../../database.js");

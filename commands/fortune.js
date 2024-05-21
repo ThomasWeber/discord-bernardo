@@ -9,19 +9,13 @@ module.exports = {
 
         const thisChannel = client.channels.cache.get(message.channel.id);
 
-
         try {
-
-
             
             const data = fs.readFileSync('assets/fortunes.txt', 'utf8');
             const fortunes = data.split('\n');
             const randomIndex = Math.floor(Math.random() * fortunes.length);
    
-
-            thisChannel.send(fortunes[randomIndex])
-             
-
+            thisChannel.send(fortunes[randomIndex])             
 
         }
         catch (error) {
